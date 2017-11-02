@@ -1,0 +1,14 @@
+.container {
+	width: 300px;
+	height: 300px;
+	border: 1px solid black;
+	position: relative;
+}
+
+.point {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background-color: #222222;
+	transition: all .05s linear; 
+}
