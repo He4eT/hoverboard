@@ -3078,7 +3078,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 console.log('board');
 
-let peer = new __WEBPACK_IMPORTED_MODULE_1_peerjs___default.a('board', { key: '4cmlwdtxffphw7b9', secure: true });
+let peer = new __WEBPACK_IMPORTED_MODULE_1_peerjs___default.a('board', { key: '4cmlwdtxffphw7b9' });
 let conn = peer.connect('playground');
 
 conn.on('open', () => {

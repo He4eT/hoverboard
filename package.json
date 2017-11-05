@@ -24,6 +24,7 @@
     "webpack-dev-server": "*"
   },
   "dependencies": {
-    "peerjs": "^0.3.14"
+    "peerjs": "^0.3.14",
+    "three": "^0.88.0"
   }
 }
