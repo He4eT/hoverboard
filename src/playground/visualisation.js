@@ -8,6 +8,9 @@ let cube
 let contentWidth, contentHeight
 
 let z = 0
+let x = 0
+let v = 0
+var a = 0
 
 let {requestAnimationFrame} = window
 
@@ -86,7 +89,13 @@ function toRad (degrees) {
 }
 
 function render () {
-  cube.rotation.z = toRad(z)
+  let angle = toRad(z)
+  v *= 0.5
+  v += Math.sin(angle)
+  x += v
+
+  cube.rotation.z = angle
+  cube.position.x = -x
 
   renderer.render(scene, camera)
 
