@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/app/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 13);
@@ -3078,23 +3078,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 console.log('board');
 
-let peer = new __WEBPACK_IMPORTED_MODULE_1_peerjs___default.a('board', { key: '4cmlwdtxffphw7b9' });
+let peer = new __WEBPACK_IMPORTED_MODULE_1_peerjs___default.a('board', { key: '4cmlwdtxffphw7b9', secure: true });
 let conn = peer.connect('playground');
-
-console.log(conn);
 
 conn.on('open', () => {
   conn.send('hi!');
+  onConnected(conn);
 });
 
-let onConnected = () => {
+let onConnected = conn => {
   let container = document.querySelector('.container');
   let point = document.querySelector('.point');
 
-  Object(__WEBPACK_IMPORTED_MODULE_0__sensors__["b" /* startSensors */])((x, y) => Object(__WEBPACK_IMPORTED_MODULE_0__sensors__["a" /* drawPoint */])(container, point, x, y));
+  Object(__WEBPACK_IMPORTED_MODULE_0__sensors__["b" /* startSensors */])((x, y) => {
+    conn.send({ y });
+    Object(__WEBPACK_IMPORTED_MODULE_0__sensors__["a" /* drawPoint */])(container, point, x, y);
+  });
 };
-
-onConnected();
 
 /***/ }),
 /* 14 */
