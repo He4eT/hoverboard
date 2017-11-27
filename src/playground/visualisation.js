@@ -7,15 +7,19 @@ let camera
 let cube
 let contentWidth, contentHeight
 
-let z = 0
-let x = 0
-let v = 0
-var a = 0
+
+let board = { 
+  alpha: 0,
+  vx: 0,
+  x: 0
+}
+
+let time = null
 
 let {requestAnimationFrame} = window
 
-export let setZ = newZ => {
-  z = newZ
+export let setAlpha = newAlpha => {
+  board.alpha = newAlpha
 }
 
 export let initVisualisation = () => {
@@ -24,8 +28,13 @@ export let initVisualisation = () => {
   window.addEventListener('resize', onWindowResized)
 
   onWindowResized()
+  render()
+}
 
-  requestAnimationFrame(render)
+export let start = () => {
+  // hide labels
+  // set time
+  requestAnimationFrame(compute)
 }
 
 function initGraphics () {
@@ -89,15 +98,27 @@ function toRad (degrees) {
 }
 
 function render () {
-  let angle = toRad(z)
-  v *= 0.5
-  v += Math.sin(angle)
-  x += v
-
-  cube.rotation.z = angle
-  cube.position.x = -x
-
   renderer.render(scene, camera)
+}
 
-  requestAnimationFrame(render)
+function compute (currentTime) {
+  time = time || currentTime
+
+  let angle = toRad(board.alpha)
+
+  board.vx *= 0.5
+  board.vx += Math.sin(angle)
+  board.x += board.vx
+
+  updateModel(angle, -board.x)
+  
+  render()
+
+  time = currentTime
+  requestAnimationFrame(compute)
+}
+
+function updateModel (a, x) {
+  cube.rotation.z = a
+  cube.position.x = x
 }
