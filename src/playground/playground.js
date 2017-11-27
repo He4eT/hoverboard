@@ -15,7 +15,10 @@ peer.on('connection', conn => {
 
 	// show countdown
 	// wait
-	start()
+	start({
+		damping: 0.9,
+		power: 5
+	})
 
   conn.on('data', ({y}) => {
     console.log(y)

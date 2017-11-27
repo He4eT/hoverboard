@@ -14,6 +14,8 @@ let board = {
   x: 0
 }
 
+let damping = 1
+let power = 0
 let time = null
 
 let {requestAnimationFrame} = window
@@ -31,7 +33,9 @@ export let initVisualisation = () => {
   render()
 }
 
-export let start = () => {
+export let start = params => {
+  damping = params.damping
+  power = params.power
   // hide labels
   // set time
   requestAnimationFrame(compute)
@@ -51,7 +55,7 @@ function initGraphics () {
 
   camera = new THREE.PerspectiveCamera(60, contentWidth / contentHeight, 1, 100000)
   var cameraTarget = new THREE.Vector3(0, 0, 0)
-  camera.position.set(0, 10, 20)
+  camera.position.set(0, 10, 100)
   camera.lookAt(cameraTarget)
 
   var light = new THREE.DirectionalLight(0xdfebff, 1)
@@ -103,18 +107,20 @@ function render () {
 
 function compute (currentTime) {
   time = time || currentTime
+  let dt = currentTime - time
 
   let angle = toRad(board.alpha)
+  let ax = Math.sin(angle)
 
-  board.vx *= 0.5
-  board.vx += Math.sin(angle)
-  board.x += board.vx
+  board.vx *= damping
 
-  updateModel(angle, -board.x)
+  board.vx += ax * dt * power / 1000
+  board.x += board.vx * dt
   
+  time = currentTime
+  updateModel(angle, -board.x)
   render()
 
-  time = currentTime
   requestAnimationFrame(compute)
 }
 
