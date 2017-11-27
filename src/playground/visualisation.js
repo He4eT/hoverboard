@@ -55,7 +55,7 @@ function initGraphics () {
 
   camera = new THREE.PerspectiveCamera(60, contentWidth / contentHeight, 1, 100000)
   var cameraTarget = new THREE.Vector3(0, 0, 0)
-  camera.position.set(0, 10, 100)
+  camera.position.set(0, 10, 20)
   camera.lookAt(cameraTarget)
 
   var light = new THREE.DirectionalLight(0xdfebff, 1)
@@ -125,6 +125,7 @@ function compute (currentTime) {
 }
 
 function updateModel (a, x) {
+  camera.position.x = x + a * 5
   cube.rotation.z = a
   cube.position.x = x
 }
