@@ -16,12 +16,13 @@ let board = {
 
 let damping = 1
 let power = 0
+let angleMultiplier = 1
 let time = null
 
 let {requestAnimationFrame} = window
 
 export let setAlpha = newAlpha => {
-  board.alpha = newAlpha
+  board.alpha = angleMultiplier * newAlpha
 }
 
 export let initVisualisation = () => {
@@ -36,6 +37,7 @@ export let initVisualisation = () => {
 export let start = params => {
   damping = params.damping
   power = params.power
+  angleMultiplier = params.angleMultiplier
   // hide labels
   // set time
   requestAnimationFrame(compute)

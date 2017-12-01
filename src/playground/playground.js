@@ -17,7 +17,8 @@ peer.on('connection', conn => {
 	// wait
 	start({
 		damping: 0.9,
-		power: 5
+		power: 5,
+		angleMultiplier: 1.5
 	})
 
   conn.on('data', ({y}) => {
