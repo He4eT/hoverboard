@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import {initGround, updateGround} from './planes'
+import {toRad} from './utils'
 
 let rendererContainer
 let renderer
@@ -7,17 +9,20 @@ let camera
 let cube
 let contentWidth, contentHeight
 
-
-let board = { 
+let board = {
   alpha: 0,
   vx: 0,
-  x: 0
+  x: 0,
+  vy: 0.01,
+  y: 0
 }
 
 let damping = 1
 let power = 0
 let angleMultiplier = 1
 let time = null
+
+let planes = initGround(1000)
 
 let {requestAnimationFrame} = window
 
@@ -53,14 +58,23 @@ function initGraphics () {
   rendererContainer.appendChild(renderer.domElement)
 
   scene = new THREE.Scene()
-  scene.add(new THREE.AmbientLight(0x444444))
 
+  initCamera()
+  initLight()
+  initBoard(10)
+  planes.map(plane => scene.add(plane))
+}
+
+function initCamera () {
   camera = new THREE.PerspectiveCamera(60, contentWidth / contentHeight, 1, 100000)
-  var cameraTarget = new THREE.Vector3(0, 0, 0)
-  camera.position.set(0, 10, 20)
+  let cameraTarget = new THREE.Vector3(0, 10, 0)
+  camera.position.set(0, 20, 20)
   camera.lookAt(cameraTarget)
+}
 
-  var light = new THREE.DirectionalLight(0xdfebff, 1)
+function initLight () {
+  scene.add(new THREE.AmbientLight(0x444444))
+  let light = new THREE.DirectionalLight(0xdfebff, 1)
   light.target.position.set(0, 0, 0)
   light.position.set(0, 200, 0)
   light.position.multiplyScalar(1.3)
@@ -68,7 +82,7 @@ function initGraphics () {
   light.castShadow = true
   light.shadowMapWidth = 1024
   light.shadowMapHeight = 1024
-  var d = 400
+  let d = 400
   light.shadowCameraLeft = -d
   light.shadowCameraRight = d
   light.shadowCameraTop = d
@@ -77,12 +91,14 @@ function initGraphics () {
   light.shadowCameraFar = 1000
   light.shadowDarkness = 0.5
   scene.add(light)
+}
 
-  var n = 10
-  var cubeGeometry = new THREE.BoxGeometry(n, 0.2, 2)
-  var material = new THREE.MeshPhongMaterial({ color: 0xFFFFFF })
+function initBoard (n) {
+  let cubeGeometry = new THREE.BoxGeometry(n, 0.2, 2)
+  let material = new THREE.MeshPhongMaterial({color: 0xFFFFFF})
   cube = new THREE.Mesh(cubeGeometry, material)
   cube.castShadow = true
+  cube.position.y = 2
 
   scene.add(cube)
 }
@@ -99,10 +115,6 @@ function onWindowResized () {
   camera.updateProjectionMatrix()
 }
 
-function toRad (degrees) {
-  return degrees * Math.PI / 180
-}
-
 function render () {
   renderer.render(scene, camera)
 }
@@ -117,17 +129,22 @@ function compute (currentTime) {
   board.vx *= damping
 
   board.vx += ax * dt * power / 1000
-  board.x += board.vx * dt
-  
+  board.x -= board.vx * dt // revers
+  board.y -= board.vy * dt // revers
+
   time = currentTime
-  updateModel(angle, -board.x)
+  updateModel(angle, board.x, board.y)
+  updateGround(board.x, 0)
   render()
 
   requestAnimationFrame(compute)
 }
 
-function updateModel (a, x) {
+function updateModel (a, x, y) {
   camera.position.x = x + a * 5
   cube.rotation.z = a
   cube.position.x = x
+
+  camera.position.z = y + 20
+  cube.position.z = y
 }
