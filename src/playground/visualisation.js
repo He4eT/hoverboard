@@ -4,6 +4,7 @@ import {initGround, updateGround} from './scene/planes'
 import {initBoard} from './scene/board'
 import {initLights} from './scene/lights'
 import {initCamera} from './scene/camera'
+import {initRenderer} from './scene/renderer'
 
 import {toRad} from './utils'
 
@@ -14,15 +15,16 @@ import {
   cameraDistantion, cameraShift
 } from './config'
 
-let rendererContainer
-let renderer
-let scene
-
+let {requestAnimationFrame} = window
 let contentWidth, contentHeight
+let scene, renderer, rendererContainer
+
+let time = null
 
 let camera
 let lights = initLights()
 let planes = initGround(titleSize)
+
 let board = {
   model: initBoard(boardSize),
   alpha: 0,
@@ -32,65 +34,42 @@ let board = {
   vy
 }
 
-let time = null
+/* Controls */
+export let setAlpha = newAlpha =>
+  void (board.alpha = angleMultiplier * newAlpha)
 
-let {requestAnimationFrame} = window
+export let start = () =>
+  requestAnimationFrame(compute)
 
-export let setAlpha = newAlpha => {
-  board.alpha = angleMultiplier * newAlpha
-}
-
+/* Scene */
 export let initVisualisation = () => {
-  initGraphics()
+  prepareScene()
 
   window.addEventListener('resize', onWindowResized)
-
   onWindowResized()
   render()
 }
 
-export let start = () => {
-  // hide labels
-  // set time
-  requestAnimationFrame(compute)
-}
-
-function initGraphics () {
+function prepareScene () {
+  renderer = initRenderer()
   rendererContainer = document.getElementById('renderer')
-  renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: true })
-  renderer.shadowMap.enabled = true
-  renderer.shadowMapSoft = true
-  renderer.setClearColor(0x000000, 0.1)
-
   rendererContainer.appendChild(renderer.domElement)
 
+  camera = initCamera(contentWidth, contentHeight)
   scene = new THREE.Scene()
 
-  camera = initCamera(contentWidth, contentHeight)
   scene.add(lights.ambientLight)
   scene.add(lights.light)
-
   scene.add(board.model)
-
-  planes.map(plane => scene.add(plane))
-}
-
-function updateWindowDimensions () {
-  contentWidth = window.innerWidth
-  contentHeight = window.innerHeight
-}
-
-function onWindowResized () {
-  updateWindowDimensions()
-  renderer.setSize(contentWidth, contentHeight)
-  camera.aspect = contentWidth / contentHeight
-  camera.updateProjectionMatrix()
+  planes.map(plane =>
+    scene.add(plane))
 }
 
 function render () {
   renderer.render(scene, camera)
 }
 
+/* Logic */
 function compute (currentTime) {
   time = time || currentTime
   let dt = currentTime - time
@@ -120,4 +99,17 @@ function updateModel (a, x, y) {
 
   camera.position.x = x + a * cameraShift
   camera.position.z = y - cameraDistantion
+}
+
+/* Utils */
+function updateWindowDimensions () {
+  contentWidth = window.innerWidth
+  contentHeight = window.innerHeight
+}
+
+function onWindowResized () {
+  updateWindowDimensions()
+  renderer.setSize(contentWidth, contentHeight)
+  camera.aspect = contentWidth / contentHeight
+  camera.updateProjectionMatrix()
 }
