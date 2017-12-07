@@ -1,3 +1,10 @@
+import {
+  titleSize,
+  boardSize, boardY, vy, powerMultiplier,
+  damping, power, angleMultiplier,
+  cameraDistantion, cameraShift, cameraY
+} from './config'
+
 import * as THREE from 'three'
 import {initGround, updateGround} from './planes'
 import {toRad} from './utils'
@@ -13,16 +20,13 @@ let board = {
   alpha: 0,
   vx: 0,
   x: 0,
-  vy: 0.01,
-  y: 0
+  y: 0,
+  vy
 }
 
-let damping = 1
-let power = 0
-let angleMultiplier = 1
 let time = null
 
-let planes = initGround(1000)
+let planes = initGround(titleSize)
 
 let {requestAnimationFrame} = window
 
@@ -39,10 +43,7 @@ export let initVisualisation = () => {
   render()
 }
 
-export let start = params => {
-  damping = params.damping
-  power = params.power
-  angleMultiplier = params.angleMultiplier
+export let start = () => {
   // hide labels
   // set time
   requestAnimationFrame(compute)
@@ -61,14 +62,14 @@ function initGraphics () {
 
   initCamera()
   initLight()
-  initBoard(10)
+  initBoard(boardSize)
   planes.map(plane => scene.add(plane))
 }
 
 function initCamera () {
   camera = new THREE.PerspectiveCamera(60, contentWidth / contentHeight, 1, 100000)
-  let cameraTarget = new THREE.Vector3(0, 10, 0)
-  camera.position.set(0, 20, -20)
+  let cameraTarget = new THREE.Vector3(0, boardY * 2, 0)
+  camera.position.set(0, cameraY, -cameraDistantion)
   camera.lookAt(cameraTarget)
 }
 
@@ -98,7 +99,7 @@ function initBoard (n) {
   let material = new THREE.MeshPhongMaterial({color: 0xFFFFFF})
   cube = new THREE.Mesh(cubeGeometry, material)
   cube.castShadow = true
-  cube.position.y = 2
+  cube.position.y = boardY
 
   scene.add(cube)
 }
@@ -128,23 +129,23 @@ function compute (currentTime) {
 
   board.vx *= damping
 
-  board.vx += ax * dt * power / 1000
-  board.x += board.vx * dt // revers
-  board.y += board.vy * dt // revers
+  board.vx += ax * dt * power * powerMultiplier
+  board.x += board.vx * dt
+  board.y += board.vy * dt
 
   time = currentTime
   updateModel(angle, board.x, board.y)
-  updateGround(board.x, 0)
+  updateGround(board.x, board.y)
   render()
 
   requestAnimationFrame(compute)
 }
 
 function updateModel (a, x, y) {
-  camera.position.x = x + a * 5
   cube.position.x = x
+  cube.position.z = y
   cube.rotation.z = (cube.rotation.z + a) / 2
 
-  camera.position.z = y - 20
-  cube.position.z = y
+  camera.position.x = x + a * cameraShift
+  camera.position.z = y - cameraDistantion
 }

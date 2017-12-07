@@ -1,9 +1,13 @@
+import {
+  key
+} from './config'
+
 import {initVisualisation, setAlpha, start} from './visualisation'
 import Peer from 'peerjs'
 
 console.log('playground')
 
-let peer = new Peer('playground', {key: '4cmlwdtxffphw7b9'})
+let peer = new Peer('playground', {key})
 
 window.onload = function () {
   initVisualisation()
@@ -17,11 +21,7 @@ peer.on('connection', conn => {
 
   // show countdown
   // wait
-  start({
-    damping: 0.9,
-    power: 5,
-    angleMultiplier: 1.5
-  })
+  start()
 
   conn.on('data', ({y}) => {
     console.log(y)
