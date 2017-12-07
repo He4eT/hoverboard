@@ -29,15 +29,16 @@ export let initGround = planeSize => {
 let updatePosition = (x, y) => plane => {
   let px = plane.position.x
   let dx = 0
+  let py = plane.position.z
+  let dy = 0
 
-  if (x - px > 1.5 * size) {
-    dx = 1
-  }
-  if (px - x > 1.5 * size) {
-    dx = -1
-  }
-
+  if (x - px > 1.5 * size) { dx = 1 }
+  if (px - x > 1.5 * size) { dx = -1 }
   plane.position.x += dx * 3 * size
+
+  if (y - py > 1.5 * size) { dy = 1 }
+  if (py - y > 1.5 * size) { dy = -1 }
+  plane.position.z += dy * 3 * size
 }
 
 export let updateGround = (x, y) =>
