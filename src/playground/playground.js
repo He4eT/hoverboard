@@ -25,7 +25,7 @@ peer.on('connection', conn => {
 
   conn.on('data', ({y}) => {
     console.log(y)
-    setAlpha(-y || 0)
+    setAlpha(y || 0)
   })
 })
 

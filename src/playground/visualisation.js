@@ -67,8 +67,8 @@ function initGraphics () {
 
 function initCamera () {
   camera = new THREE.PerspectiveCamera(60, contentWidth / contentHeight, 1, 100000)
-  let cameraTarget = new THREE.Vector3(0, 10, 0)
-  camera.position.set(0, 20, 20)
+  let cameraTarget = new THREE.Vector3(0, 0, 0)
+  camera.position.set(0, 20, -20)
   camera.lookAt(cameraTarget)
 }
 
@@ -124,13 +124,13 @@ function compute (currentTime) {
   let dt = currentTime - time
 
   let angle = toRad(board.alpha)
-  let ax = Math.sin(angle)
+  let ax = Math.sin(angle) * (-1)
 
   board.vx *= damping
 
   board.vx += ax * dt * power / 1000
-  board.x -= board.vx * dt // revers
-  board.y -= board.vy * dt // revers
+  board.x += board.vx * dt // revers
+  board.y += board.vy * dt // revers
 
   time = currentTime
   updateModel(angle, board.x, board.y)
@@ -145,6 +145,6 @@ function updateModel (a, x, y) {
   cube.position.x = x
   cube.rotation.z = (cube.rotation.z + a) / 2
 
-  camera.position.z = y + 20
+  camera.position.z = y - 20
   cube.position.z = y
 }
