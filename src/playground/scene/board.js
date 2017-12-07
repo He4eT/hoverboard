@@ -1,7 +1,7 @@
+import * as THREE from 'three'
 import {
   boardY
 } from '../config'
-import * as THREE from 'three'
 
 export let initBoard = boardSize => {
   let boardGeometry = new THREE.BoxGeometry(
