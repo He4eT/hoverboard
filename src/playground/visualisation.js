@@ -67,7 +67,7 @@ function initGraphics () {
 
 function initCamera () {
   camera = new THREE.PerspectiveCamera(60, contentWidth / contentHeight, 1, 100000)
-  let cameraTarget = new THREE.Vector3(0, 0, 0)
+  let cameraTarget = new THREE.Vector3(0, 10, 0)
   camera.position.set(0, 20, -20)
   camera.lookAt(cameraTarget)
 }
