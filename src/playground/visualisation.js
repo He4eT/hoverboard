@@ -142,8 +142,8 @@ function compute (currentTime) {
 
 function updateModel (a, x, y) {
   camera.position.x = x + a * 5
-  cube.rotation.z = a
   cube.position.x = x
+  cube.rotation.z = (cube.rotation.z + a) / 2
 
   camera.position.z = y + 20
   cube.position.z = y
