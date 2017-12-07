@@ -84,14 +84,13 @@ function compute (currentTime) {
   board.y += board.vy * dt
 
   time = currentTime
-  updateModel(angle, board.x, board.y)
-  updateGround(board.x, board.y)
-  render()
-
+  updateScene(angle, board.x, board.y)
   requestAnimationFrame(compute)
 }
 
-function updateModel (a, x, y) {
+function updateScene (a, x, y) {
+  updateGround(x, y)
+
   board.model.position.x = x
   board.model.position.z = y
   board.model.rotation.z =
@@ -99,6 +98,8 @@ function updateModel (a, x, y) {
 
   camera.position.x = x + a * cameraShift
   camera.position.z = y - cameraDistantion
+
+  render()
 }
 
 /* Utils */
