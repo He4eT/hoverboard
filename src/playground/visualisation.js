@@ -6,17 +6,20 @@ import {
 } from './config'
 
 import * as THREE from 'three'
-import {initGround, updateGround} from './planes'
+import {initGround, updateGround} from './scene/planes'
+import {initBoard} from './scene/board'
 import {toRad} from './utils'
 
 let rendererContainer
 let renderer
 let scene
 let camera
-let cube
+
 let contentWidth, contentHeight
 
+let planes = initGround(titleSize)
 let board = {
+  model: initBoard(boardSize),
   alpha: 0,
   vx: 0,
   x: 0,
@@ -25,8 +28,6 @@ let board = {
 }
 
 let time = null
-
-let planes = initGround(titleSize)
 
 let {requestAnimationFrame} = window
 
@@ -62,7 +63,8 @@ function initGraphics () {
 
   initCamera()
   initLight()
-  initBoard(boardSize)
+
+  scene.add(board.model)
   planes.map(plane => scene.add(plane))
 }
 
@@ -92,16 +94,6 @@ function initLight () {
   light.shadowCameraFar = 1000
   light.shadowDarkness = 0.5
   scene.add(light)
-}
-
-function initBoard (n) {
-  let cubeGeometry = new THREE.BoxGeometry(n, 0.2, 2)
-  let material = new THREE.MeshPhongMaterial({color: 0xFFFFFF})
-  cube = new THREE.Mesh(cubeGeometry, material)
-  cube.castShadow = true
-  cube.position.y = boardY
-
-  scene.add(cube)
 }
 
 function updateWindowDimensions () {
@@ -142,9 +134,10 @@ function compute (currentTime) {
 }
 
 function updateModel (a, x, y) {
-  cube.position.x = x
-  cube.position.z = y
-  cube.rotation.z = (cube.rotation.z + a) / 2
+  board.model.position.x = x
+  board.model.position.z = y
+  board.model.rotation.z =
+    (board.model.rotation.z + a) / 2
 
   camera.position.x = x + a * cameraShift
   camera.position.z = y - cameraDistantion

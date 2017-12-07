@@ -1,0 +1,19 @@
+import {
+  boardY
+} from '../config'
+import * as THREE from 'three'
+
+export let initBoard = boardSize => {
+  let boardGeometry = new THREE.BoxGeometry(
+    boardSize,
+    boardSize * 0.02,
+    boardSize * 0.2)
+
+  let material = new THREE.MeshPhongMaterial({color: 0xFFFFFF})
+
+  let board = new THREE.Mesh(boardGeometry, material)
+  board.castShadow = true
+  board.position.y = boardY
+
+  return board
+}
