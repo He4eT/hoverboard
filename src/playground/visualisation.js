@@ -55,14 +55,14 @@ function prepareScene () {
   rendererContainer = document.getElementById('renderer')
   rendererContainer.appendChild(renderer.domElement)
 
-  camera = initCamera(contentWidth, contentHeight)
   scene = new THREE.Scene()
-
   scene.add(lights.ambientLight)
   scene.add(lights.light)
   scene.add(board.model)
   planes.map(plane =>
     scene.add(plane))
+
+  camera = initCamera(contentWidth, contentHeight)
 }
 
 function render () {
