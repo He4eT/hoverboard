@@ -11,7 +11,12 @@ let planes = []
 
 let createTile = ([x, y]) => {
   let geometry = new THREE.PlaneGeometry(size, size)
-  let material = new THREE.MeshBasicMaterial({color: x + y})
+  // eslint-disable-next-line new-cap
+  let texture = new THREE.ImageUtils.loadTexture('../images/grid.png')
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  texture.repeat.set(20, 20)
+  let material = new THREE.MeshBasicMaterial({map: texture})
+
   let mesh = new THREE.Mesh(geometry, material)
   mesh.rotation.x = toRad(-90)
   mesh.position.x = x * size

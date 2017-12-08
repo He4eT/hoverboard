@@ -9,6 +9,7 @@ import {initRenderer} from './scene/renderer'
 import {toRad} from './utils'
 
 import {
+  fogPower,
   titleSize,
   boardSize, vy, powerMultiplier,
   damping, power, angleMultiplier,
@@ -61,6 +62,7 @@ function prepareScene () {
   scene.add(board.model)
   planes.map(plane =>
     scene.add(plane))
+  scene.fog = new THREE.FogExp2(0xffffff, fogPower)
 
   camera = initCamera(contentWidth, contentHeight)
 }

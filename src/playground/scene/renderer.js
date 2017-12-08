@@ -7,6 +7,6 @@ export let initRenderer = () => {
     alpha: true})
   renderer.shadowMap.enabled = true
   renderer.shadowMapSoft = true
-  renderer.setClearColor(0x000000, 0.1)
+  renderer.setClearColor(0xffffff, 0.1)
   return renderer
 }
