@@ -9,12 +9,7 @@ console.log('playground')
 
 let peer = new Peer('playground', {key})
 
-window.onload = function () {
-  initVisualisation()
-  // show labels
-}
-
-console.log(getPeerName())
+window.onload = initVisualisation
 
 peer.on('connection', conn => {
   console.log('board:', conn.peer)
@@ -23,17 +18,6 @@ peer.on('connection', conn => {
   // wait
   start()
 
-  conn.on('data', ({y}) => {
-    console.log(y)
-    setAlpha(y || 0)
-  })
+  conn.on('data', ({y}) =>
+    setAlpha(y || 0))
 })
-
-function getPeerName () {
-  let time = new Date()
-  let mmss = time.getMinutes().toString() +
-    time.getSeconds().toString()
-
-  let peerName = mmss[1] + mmss[3] + mmss[0] + mmss[2]
-  return `pg${peerName}`
-}
