@@ -13,7 +13,7 @@ export let powerMultiplier = 0.001
 export let angleMultiplier = 1.5
 
 /* ground */
-export let titleSize = 200
+export let titleSize = 256
 
 /* camera */
 export let cameraDistantion = 30

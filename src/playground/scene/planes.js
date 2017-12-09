@@ -12,7 +12,7 @@ let planes = []
 let createTile = ([x, y]) => {
   let geometry = new THREE.PlaneGeometry(size, size)
   // eslint-disable-next-line new-cap
-  let texture = new THREE.ImageUtils.loadTexture('../images/grid.png')
+  let texture = new THREE.TextureLoader().load('../images/grid.png')
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(20, 20)
   let material = new THREE.MeshBasicMaterial({map: texture})
