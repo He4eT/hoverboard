@@ -24,6 +24,7 @@
     "webpack-dev-server": "*"
   },
   "dependencies": {
+    "nosleep.js": "^0.7.0",
     "peerjs": "^0.3.14",
     "three": "^0.88.0"
   }
