@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 export let initLights = () => {
   let ambientLight = new THREE.AmbientLight(0x444444)
-  let light = new THREE.DirectionalLight(0xdfebff, 1)
+  let light = new THREE.DirectionalLight(0xffffff, 1)
 
   light.target.position.set(0, 0, 0)
   light.position.set(0, 200, 0)

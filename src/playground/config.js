@@ -5,9 +5,9 @@ export let key = '4cmlwdtxffphw7b9'
 export let boardSize = 10
 
 export let boardY = 10
-export let vy = 0.05
+export let vy = 0.1
 
-export let damping = 0.9
+export let damping = 0.6
 export let power = 5
 export let powerMultiplier = 0.001
 export let angleMultiplier = 1.5
