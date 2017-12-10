@@ -5,26 +5,21 @@ import {startSensors, drawPoint} from './sensors'
 
 console.log('board')
 
-let peer = new Peer('board', {key: '4cmlwdtxffphw7b9'})
-// let connection
+let start = () => {
+  // document.body.style.backgroundColor = 'red'
+  let noSleep = new NoSleep()
+  noSleep.enable()
 
-window.onload = () => {
-  // let startButton = document.querySelector('.start')
-  // startButton.addEventListener('click', () => {
-    let connection = peer.connect('playground')
+  let peer = new Peer('board2', {key: '4cmlwdtxffphw7b9'})
+  let connection = peer.connect('playground')
 
-    connection.on('open', () => {
-      connection.send('hi!')
-      onConnected(connection)
-    })
-  // })
+  connection.on('open', () => {
+    connection.send('start')
+    onConnected(connection)
+  })
 }
 
 let onConnected = (connection) => {
-  let noSleep = new NoSleep()
-  noSleep.enable()
-  alert(3)
-
   let container = document.querySelector('.container')
   let point = document.querySelector('.point')
 
@@ -32,4 +27,9 @@ let onConnected = (connection) => {
     connection.send({y})
     drawPoint(container, point, x, y)
   })
+}
+
+window.onload = () => {
+  let startButton = document.querySelector('.start')
+  startButton.addEventListener('click', start)
 }
