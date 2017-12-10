@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import {toRad} from '../utils'
+import {toRad} from '../../utils/utils'
 
 let size = 1
 let planesCoords = [

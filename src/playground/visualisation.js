@@ -6,7 +6,7 @@ import {initLights} from './scene/lights'
 import {initCamera} from './scene/camera'
 import {initRenderer} from './scene/renderer'
 
-import {toRad} from './utils'
+import {toRad} from '../utils/utils'
 
 import {
   fogPower,
