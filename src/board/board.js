@@ -2,15 +2,17 @@ import Peer from 'peerjs'
 import NoSleep from 'nosleep.js'
 
 import {startSensors, drawPoint} from './sensors'
+import {getPeerId} from '../utils/utils'
 
-console.log('board')
+let boardName = `board${getPeerId()}`
+console.log(boardName)
 
 let start = () => {
   // document.body.style.backgroundColor = 'red'
   let noSleep = new NoSleep()
   noSleep.enable()
 
-  let peer = new Peer('board2', {key: '4cmlwdtxffphw7b9'})
+  let peer = new Peer(boardName, {key: '4cmlwdtxffphw7b9'})
   let connection = peer.connect('playground')
 
   connection.on('open', () => {
