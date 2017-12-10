@@ -8,31 +8,72 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100vh;
+  background-color: #fff;
 }
 
+ /* playground */
 canvas {
   display: block;
 }
 
-.container {
-  width: 300px;
-  height: 300px;
-  border: 1px solid black;
+/* board */
+.boardBody {
+  background-color: #222;
+  font-family: monospace;
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 1000px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
+
+.controls {
+  padding: 2rem;
+}
+
+.token, .start {
+  display: block;
+  width: 100%;
+  border: 0.1rem solid #ddd;
+  padding: 1rem;
+  background-color: inherit;
+  text-align: center;
+  font-size: 2rem;
+  font-family: monospace;
+  color: #ddd;
+  outline: none;
+}
+
+.token {
+  letter-spacing: 0.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.start {
+  font-size: 1.5rem;
+}
+
+.sensorContainer {
+  /*height: 300px;*/
+  border: 0.1rem solid #ddd;
   position: relative;
+  flex-grow: 1;
+  margin: 2rem;
 }
 
 .point {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #222222;
+  width: 1rem;
+  height: 1rem;
+  background-color: #ddd;
+  border-radius: 50%;
   transition: all .05s linear;
-}
-
-.ball {
-  position: absolute;
-  background: red;
-  width: 30px;
-  height: 30px;
-  transition: all .05s linear;
+  box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 1);
 }

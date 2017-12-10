@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Hoverboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-	<div class="controls">
-		<input type="text">
-		<button class="button start">Start</button>
-	</div>
+<body class="boardBody">
+  <div class="content">
+    <div class="controls">
+      <input class="token" type="number" autofocus>
+      <button class="button start">start</button>
+    </div>
 
-	<div class="container">
-		<div class="point"></div>
-	</div>
+    <div class="sensorContainer hidden">
+      <div class="point"></div>
+    </div>
+  </div>
 
-	<script type="text/javascript" src="../js/board.js"></script>
+  <script type="text/javascript" src="../js/board.js"></script>
 </body>
 </html>

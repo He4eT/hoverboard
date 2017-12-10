@@ -14,11 +14,11 @@ export let drawPoint =
 (container, point, x, y) => {
   let pointRadius = point.clientWidth / 2
 
-  var maxX = container.clientWidth - 2 * pointRadius
-  var maxY = container.clientHeight - 2 * pointRadius
+  var maxY = container.clientWidth - 2 * pointRadius
+  var maxX = container.clientHeight - 2 * pointRadius
 
-  x += 90
-  y += 90
+  x = 90 - x
+  y = 90 - y
 
   let translate = (max, value) =>
     max * value / 180 - pointRadius
