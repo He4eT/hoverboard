@@ -44,10 +44,10 @@ function hideControls () {
   controls.classList.add('hidden')
   sensorContainer.classList.remove('hidden')
 
-  goFullScreen()
+  activateFullScreen()
 }
 
-function goFullScreen () {
+function activateFullScreen () {
   let container = document.documentElement
 
   if (container.requestFullscreen) {
