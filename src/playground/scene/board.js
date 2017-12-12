@@ -5,7 +5,7 @@ import {
 
 import {load} from '../../utils/utils'
 
-export let initBoard = boardSize => {
+export let initBoard = () => {
   return load('../models/board.json')
     .then(model => {
       let material = new THREE.MeshPhongMaterial({color: boardColor})

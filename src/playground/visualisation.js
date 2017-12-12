@@ -11,7 +11,7 @@ import {toRad} from '../utils/utils'
 import {
   fogPower,
   titleSize,
-  boardSize, vy, powerMultiplier,
+  vy, powerMultiplier,
   damping, power, angleMultiplier,
   cameraDistantion, cameraShift
 } from './config'
@@ -25,7 +25,7 @@ let time = null
 let camera
 let lights = initLights()
 let planes = initGround(titleSize)
-let loadBoard = initBoard(boardSize)
+let loadBoard = initBoard()
 let board = {
   model: null,
   alpha: 0,
@@ -44,10 +44,10 @@ export let start = () =>
 
 /* Scene */
 
-let loadModels = 
+let loadModels =
   loadBoard
-  .then(model =>
-    void (board.model = model))
+    .then(model =>
+      void (board.model = model))
 
 let addListeners = () => {
   window.addEventListener('resize', onWindowResized)
@@ -58,7 +58,7 @@ export let initVisualisation = () => {
   loadModels
     .then(prepareScene)
     .then(addListeners)
-    .then(render)  
+    .then(render)
 }
 
 function prepareScene () {
