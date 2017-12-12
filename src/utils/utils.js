@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 export function toRad (degrees) {
   return degrees * Math.PI / 180
 }
@@ -9,4 +11,12 @@ export function getPeerId () {
 
   let peerName = mmss[1] + mmss[3] + mmss[0] + mmss[2]
   return peerName
+}
+
+export let load = path => {
+	let loader = new THREE.ObjectLoader()
+	let noop = _ => void _
+
+	return new Promise((resolve, reject) =>
+		loader.load(path, resolve, noop, reject))
 }

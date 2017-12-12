@@ -25,9 +25,9 @@ let time = null
 let camera
 let lights = initLights()
 let planes = initGround(titleSize)
-
+let loadBoard = initBoard(boardSize)
 let board = {
-  model: initBoard(boardSize),
+  model: null,
   alpha: 0,
   vx: 0,
   x: 0,
@@ -43,12 +43,22 @@ export let start = () =>
   requestAnimationFrame(compute)
 
 /* Scene */
-export let initVisualisation = () => {
-  prepareScene()
 
+let loadModels = 
+  loadBoard
+  .then(model =>
+    void (board.model = model))
+
+let addListeners = () => {
   window.addEventListener('resize', onWindowResized)
   onWindowResized()
-  render()
+}
+
+export let initVisualisation = () => {
+  loadModels
+    .then(prepareScene)
+    .then(addListeners)
+    .then(render)  
 }
 
 function prepareScene () {
