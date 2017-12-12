@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import {
-  boardY
+  boardY, boardColor
 } from '../config'
 
 import {load} from '../../utils/utils'
@@ -8,10 +8,9 @@ import {load} from '../../utils/utils'
 export let initBoard = boardSize => {
   return load('../models/board.json')
     .then(model => {
-      let material = new THREE.MeshPhongMaterial({color: 0xaaaaaa})
-
-      model.material = material
-      model.position.y = boardY
-      return model
+      let material = new THREE.MeshPhongMaterial({color: boardColor})
+      let board = new THREE.Mesh(model, material)
+      board.position.y = boardY
+      return board
     })
 }

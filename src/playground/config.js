@@ -2,7 +2,7 @@
 export let key = '4cmlwdtxffphw7b9'
 
 /* board */
-export let boardSize = 10
+export let boardColor = 0x777777
 
 export let boardY = 10
 export let vy = 0.1

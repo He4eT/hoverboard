@@ -14,7 +14,7 @@ export function getPeerId () {
 }
 
 export let load = path => {
-	let loader = new THREE.ObjectLoader()
+	let loader = new THREE.BufferGeometryLoader()
 	let noop = _ => void _
 
 	return new Promise((resolve, reject) =>
