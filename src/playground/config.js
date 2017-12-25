@@ -15,6 +15,13 @@ export let angleMultiplier = 1.5
 /* ground */
 export let titleSize = 256
 
+/* cubes */
+export let cubeNumber = 3
+export let cubeDistance = 30
+export let cubeWidth = 20
+export let cubeHeight = 1
+export let cubeColor = 0x999999
+
 /* camera */
 export let cameraDistantion = 30
 export let cameraShift = 5

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 
 import {initGround, updateGround} from './scene/planes'
+import {initCubes, updateCubes} from './scene/cubes'
 import {initBoard} from './scene/board'
 import {initLights} from './scene/lights'
 import {initCamera} from './scene/camera'
@@ -11,6 +12,8 @@ import {toRad} from '../utils/utils'
 import {
   fogPower,
   titleSize,
+  cubeNumber, cubeDistance, cubeColor,
+  cubeWidth, cubeHeight,
   vy, powerMultiplier,
   damping, power, angleMultiplier,
   cameraDistantion, cameraShift
@@ -25,6 +28,13 @@ let time = null
 let camera
 let lights = initLights()
 let planes = initGround(titleSize)
+let cubes = initCubes(
+  cubeNumber,
+  cubeDistance,
+  cubeWidth,
+  cubeHeight,
+  cubeColor)
+
 let loadBoard = initBoard()
 let board = {
   model: null,
@@ -72,6 +82,8 @@ function prepareScene () {
   scene.add(board.model)
   planes.map(plane =>
     scene.add(plane))
+  cubes.map(cube =>
+    scene.add(cube))
   scene.fog = new THREE.FogExp2(0xffffff, fogPower)
 
   camera = initCamera(contentWidth, contentHeight)
@@ -102,6 +114,7 @@ function compute (currentTime) {
 
 function updateScene (a, x, y) {
   updateGround(x, y)
+  updateCubes(x, y)
 
   board.model.position.x = x
   board.model.position.z = y
