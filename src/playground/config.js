@@ -8,7 +8,7 @@ export let boardY = 10
 export let vy = 0.1
 
 export let damping = 0.8
-export let power = 5
+export let power = 8
 export let powerMultiplier = 0.001
 export let angleMultiplier = 1.5
 
@@ -16,8 +16,8 @@ export let angleMultiplier = 1.5
 export let titleSize = 256
 
 /* cubes */
-export let cubeNumber = 3
-export let cubeDistance = 30
+export let cubeNumber = 5
+export let cubeDistance = 50
 export let cubeWidth = 20
 export let cubeHeight = 1
 export let cubeColor = 0x999999

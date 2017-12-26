@@ -32,7 +32,7 @@ export let initCubes =
 let updateCube = (x, y) => cube => {
   let cy = cube.position.z
 
-  if (cy < y) {
+  if (cy < y - distance) {
     cube.position.z += distance * number
     cube.position.x = x
   }
