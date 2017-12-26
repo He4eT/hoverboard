@@ -5,7 +5,7 @@ export let initLights = () => {
   let light = new THREE.DirectionalLight(0xffffff, 1)
 
   light.target.position.set(0, 0, 0)
-  light.position.set(0, 200, 0)
+  light.position.set(0, 10, 5)
   light.position.multiplyScalar(1.3)
 
   light.castShadow = true

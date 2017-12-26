@@ -2,7 +2,7 @@
 export let key = '4cmlwdtxffphw7b9'
 
 /* board */
-export let boardColor = 0x777777
+export let boardColor = 0xAAAAAA
 
 export let boardY = 10
 export let vy = 0.1
@@ -17,8 +17,8 @@ export let titleSize = 256
 
 /* cubes */
 export let cubeNumber = 5
-export let cubeDistance = 50
-export let cubeWidth = 20
+export let cubeDistance = 40
+export let cubeWidth = 16
 export let cubeHeight = 1
 export let cubeColor = 0x999999
 
