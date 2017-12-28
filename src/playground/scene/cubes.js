@@ -15,7 +15,7 @@ export let initCubes =
 
     cube.position.x = 0
     cube.position.y = 0
-    cube.position.z = cubeDistance * (i + 1)
+    cube.position.z = 100 + cubeDistance * (i + 1)
 
     return cube
   }

@@ -138,4 +138,5 @@ function onWindowResized () {
   renderer.setSize(contentWidth, contentHeight)
   camera.aspect = contentWidth / contentHeight
   camera.updateProjectionMatrix()
+  render()
 }
