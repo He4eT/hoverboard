@@ -14,7 +14,9 @@ let start = () => {
   noSleep.enable()
 
   let peer = new Peer(boardName, {key: '4cmlwdtxffphw7b9'})
-  let connection = peer.connect('playground')
+
+  let boardId = document.querySelector('.token').value
+  let connection = peer.connect(`playground${boardId}`)
 
   connection.on('open', () => {
     connection.send('start')

@@ -12,6 +12,27 @@ body, html {
 }
 
  /* playground */
+.hud {
+  position: absolute;
+  top: 1rem;
+  left: 1.4rem;
+  font-family: Geostar Fill;
+}
+
+.hud .board-token {
+  font-size: 7em;
+}
+
+.hud .points {
+  visibility: hidden;
+  font-size: 5em;
+}
+
+.hud .angle {
+  visibility: hidden;
+  font-size: 3em;
+}
+
 canvas {
   display: block;
 }

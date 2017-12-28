@@ -9,7 +9,11 @@ export function getPeerId () {
   let mmss = time.getMinutes().toString() +
     time.getSeconds().toString()
 
-  let peerName = mmss[1] + mmss[3] + mmss[0] + mmss[2]
+  let n = n =>
+    (mmss[n] | '0').toString()
+
+  let peerName = `${n(1)}${n(3)}${n(0)}${n(2)}`
+
   return peerName
 }
 
@@ -19,4 +23,9 @@ export let load = path => {
 
   return new Promise((resolve, reject) =>
     loader.load(path, resolve, noop, reject))
+}
+
+export let setText = (selector, text) => {
+  let el = document.querySelector(selector)
+  el.innerHTML = text
 }

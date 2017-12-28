@@ -21,6 +21,7 @@ export let cubeDistance = 40
 export let cubeWidth = 16
 export let cubeHeight = 1
 export let cubeColor = 0x999999
+export let cubeHandicap = 100
 
 /* camera */
 export let cameraDistantion = 30

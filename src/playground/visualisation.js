@@ -1,18 +1,20 @@
 import * as THREE from 'three'
 
+import {
+  initCubes, updateCubes
+} from './scene/cubes'
 import {initGround, updateGround} from './scene/planes'
-import {initCubes, updateCubes} from './scene/cubes'
 import {initBoard} from './scene/board'
 import {initLights} from './scene/lights'
 import {initCamera} from './scene/camera'
 import {initRenderer} from './scene/renderer'
 
-import {toRad} from '../utils/utils'
+import {toRad, setText} from '../utils/utils'
 
 import {
   fogPower,
   titleSize,
-  cubeNumber, cubeDistance, cubeColor,
+  cubeNumber, cubeDistance, cubeColor, cubeHandicap,
   cubeWidth, cubeHeight,
   vy, powerMultiplier,
   damping, power, angleMultiplier,
@@ -24,6 +26,7 @@ let contentWidth, contentHeight
 let scene, renderer, rendererContainer
 
 let time = null
+let checkedPoints = 0
 
 let camera
 let lights = initLights()
@@ -33,7 +36,8 @@ let cubes = initCubes(
   cubeDistance,
   cubeWidth,
   cubeHeight,
-  cubeColor)
+  cubeColor,
+  cubeHandicap)
 
 let loadBoard = initBoard()
 let board = {
@@ -112,9 +116,20 @@ function compute (currentTime) {
   requestAnimationFrame(compute)
 }
 
+function updateHUD (collision, y) {
+  checkedPoints += collision
+    ? 1
+    : 0
+  let total =
+    Math.max(0, parseInt((y - cubeHandicap) / cubeDistance))
+  setText('.check', checkedPoints.toString().padStart(3, '0'))
+  setText('.all', total.toString().padStart(3, '0'))
+}
+
 function updateScene (a, x, y) {
   updateGround(x, y)
-  updateCubes(x, y)
+  updateCubes(x, y, updateHUD)
+  setText('.angle', a.toFixed(2).padStart(5, '+'))
 
   board.model.position.x = x
   board.model.position.z = y
