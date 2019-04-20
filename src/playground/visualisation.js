@@ -60,8 +60,8 @@ export let start = () =>
 
 let loadModels =
   loadBoard
-    .then(model =>
-      void (board.model = model))
+  .then(model =>
+    void (board.model = model))
 
 let addListeners = () => {
   window.addEventListener('resize', onWindowResized)
@@ -70,9 +70,9 @@ let addListeners = () => {
 
 export let initVisualisation = () => {
   loadModels
-    .then(prepareScene)
-    .then(addListeners)
-    .then(render)
+  .then(prepareScene)
+  .then(addListeners)
+  .then(render)
 }
 
 function prepareScene () {
