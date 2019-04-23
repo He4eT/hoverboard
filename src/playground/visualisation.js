@@ -106,6 +106,7 @@ function render () {
 }
 
 /* Logic */
+
 function compute (currentTime) {
   time = time || currentTime
   let dt = currentTime - time
