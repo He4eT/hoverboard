@@ -22,5 +22,9 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
+  },
+  devServer: {
+    compress: true,
+    hot: true
   }
 };

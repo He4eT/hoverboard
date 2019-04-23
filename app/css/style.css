@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Geostar+Fill&effect=outline');
+
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +18,7 @@ body, html {
   position: absolute;
   top: 1rem;
   left: 1.4rem;
-  font-family: Geostar Fill;
+  font-family: Geostar Fill, monospace;
 }
 
 .hud .board-token {
