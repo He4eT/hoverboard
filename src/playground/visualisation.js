@@ -49,6 +49,8 @@ let board = {
   vy
 }
 
+let onScore = console.log
+
 /* Controls */
 export let setAlpha = newAlpha =>
   void (board.alpha = angleMultiplier * newAlpha)
@@ -58,7 +60,10 @@ export let start = () =>
 
 /* Scene */
 
-let loadModels =
+let setCallback = fn =>
+  void (onScore = fn)
+
+let loadModels = () =>
   loadBoard
   .then(model =>
     void (board.model = model))
@@ -68,8 +73,10 @@ let addListeners = () => {
   onWindowResized()
 }
 
-export let initVisualisation = () => {
-  loadModels
+export let initVisualisation = updateHUD => _ => {
+  Promise.resolve(updateHUD)
+  .then(setCallback)
+  .then(loadModels)
   .then(prepareScene)
   .then(addListeners)
   .then(render)
@@ -116,19 +123,17 @@ function compute (currentTime) {
   requestAnimationFrame(compute)
 }
 
-function updateHUD (collision, y) {
-  checkedPoints += collision
-    ? 1
-    : 0
+function updateScore (collision, y) {
+  checkedPoints += 1 * collision
   let total =
     Math.max(0, parseInt((y - cubeHandicap) / cubeDistance))
-  setText('.check', checkedPoints.toString().padStart(3, '0'))
-  setText('.all', total.toString().padStart(3, '0'))
+
+  onScore({checkedPoints, total})
 }
 
 function updateScene (a, x, y) {
   updateGround(x, y)
-  updateCubes(x, y, updateHUD)
+  updateCubes(x, y, updateScore)
   setText('.angle', a.toFixed(2).padStart(5, '+'))
 
   board.model.position.x = x
@@ -143,6 +148,7 @@ function updateScene (a, x, y) {
 }
 
 /* Utils */
+
 function updateWindowDimensions () {
   contentWidth = window.innerWidth
   contentHeight = window.innerHeight
