@@ -1,34 +1,27 @@
 import {key} from './config'
-import {getPeerId, setText} from '../utils/utils'
+import {showPIN, hidePIN, showHUD} from './dom'
+
+import {getPeerId} from '../utils/utils'
 
 import {initVisualisation, setAlpha, start} from './visualisation'
 import Peer from 'peerjs'
 
 console.log('playground')
 
+window.onload = initVisualisation
+
 let peerId = getPeerId()
-let peer = new Peer(`playground${peerId}`, {key})
+showPIN(peerId)
 
-window.onload = () => {
-  setText('.board-token', peerId)
-  initVisualisation()
-}
-
-peer.on('connection', conn => {
+new
+Peer(`playground${peerId}`, {key})
+.on('connection', conn => {
   console.log('board:', conn.peer)
 
-  setText('.board-token', '')
+  hidePIN()
   showHUD()
   start()
 
   conn.on('data', ({y}) =>
     setAlpha(y || 0))
 })
-
-function showHUD () {
-  let points = document.querySelector('.points')
-  let angle = document.querySelector('.angle')
-
-  points.style.visibility = 'visible'
-  angle.style.visibility = 'visible'
-}
