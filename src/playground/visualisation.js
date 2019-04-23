@@ -9,7 +9,7 @@ import {initLights} from './scene/lights'
 import {initCamera} from './scene/camera'
 import {initRenderer} from './scene/renderer'
 
-import {toRad, setText} from '../utils/utils'
+import {toRad} from '../utils/utils'
 
 import {
   fogPower,
@@ -50,6 +50,7 @@ let board = {
 }
 
 let onScore = console.log
+let onAngle = console.log
 
 /* Controls */
 export let setAlpha = newAlpha =>
@@ -60,8 +61,8 @@ export let start = () =>
 
 /* Scene */
 
-let setCallback = fn =>
-  void (onScore = fn)
+let setCallbacks = ({updateHUD, updateAngle}) =>
+  void ([onScore, onAngle] = [updateHUD, updateAngle])
 
 let loadModels = () =>
   loadBoard
@@ -73,9 +74,9 @@ let addListeners = () => {
   onWindowResized()
 }
 
-export let initVisualisation = updateHUD => _ => {
-  Promise.resolve(updateHUD)
-  .then(setCallback)
+export let initVisualisation = callbacks => _ => {
+  Promise.resolve(callbacks)
+  .then(setCallbacks)
   .then(loadModels)
   .then(prepareScene)
   .then(addListeners)
@@ -134,7 +135,7 @@ function updateScore (collision, y) {
 function updateScene (a, x, y) {
   updateGround(x, y)
   updateCubes(x, y, updateScore)
-  setText('.angle', a.toFixed(2).padStart(5, '+'))
+  onAngle(a)
 
   board.model.position.x = x
   board.model.position.z = y

@@ -1,5 +1,11 @@
 import {key} from './config'
-import {showPIN, hidePIN, showHUD, updateHUD} from './dom'
+import {
+  showPIN,
+  hidePIN,
+  showHUD,
+  updateHUD,
+  updateAngle
+} from './dom'
 
 import {getPeerId} from '../utils/utils'
 
@@ -8,7 +14,9 @@ import Peer from 'peerjs'
 
 console.log('playground')
 
-window.onload = initVisualisation(updateHUD)
+window.onload = initVisualisation({
+  updateHUD,
+  updateAngle})
 
 let peerId = getPeerId()
 showPIN(peerId)

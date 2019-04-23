@@ -19,3 +19,6 @@ export let updateHUD = ({checkedPoints, total}) => {
   setText('.check', checkedPoints.toString().padStart(3, '0'))
   setText('.all', total.toString().padStart(3, '0'))
 }
+
+export let updateAngle = a =>
+  setText('.angle', a.toFixed(2).padStart(5, '+'))
