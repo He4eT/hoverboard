@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "nosleep.js": "^0.7.0",
-    "peerjs": "^0.3.14",
+    "peerjs": "^1.0.0",
     "three": "^0.88.0"
   }
 }

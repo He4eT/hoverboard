@@ -13,10 +13,11 @@ let start = () => {
   let noSleep = new NoSleep()
   noSleep.enable()
 
-  let peer = new Peer(boardName, {key: '4cmlwdtxffphw7b9'})
+  let peer = new Peer()
 
-  let boardId = document.querySelector('.token').value
-  let connection = peer.connect(`playground${boardId}`)
+  let boardPin = document.querySelector('.token').value
+  let boardId = `hoverboard-playground-${boardPin}`
+  let connection = peer.connect(boardId)
 
   connection.on('open', () => {
     connection.send('start')

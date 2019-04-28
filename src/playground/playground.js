@@ -18,12 +18,13 @@ window.onload = initVisualisation({
   updateHUD,
   updateAngle})
 
-let peerId = getPeerId()
-showPIN(peerId)
+let pin = getPeerId()
+showPIN(pin)
 
-new
-Peer(`playground${peerId}`, {key})
-.on('connection', conn => {
+let peerId = `hoverboard-playground-${pin}`
+let peer = new Peer(peerId)
+
+peer.on('connection', conn => {
   console.log('board:', conn.peer)
 
   hidePIN()

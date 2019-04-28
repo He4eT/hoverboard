@@ -25,6 +25,7 @@ module.exports = {
   },
   devServer: {
     compress: true,
+    https: true,
     hot: true
   }
 };
