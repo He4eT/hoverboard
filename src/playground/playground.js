@@ -11,8 +11,6 @@ import {getPin} from '../utils/utils'
 import {initVisualisation, setAlpha, start} from './visualisation'
 import Peer from 'peerjs'
 
-console.log('playground')
-
 window.onload = initVisualisation({
   updateHUD,
   updateAngle})
@@ -22,6 +20,7 @@ showPIN(pin)
 
 let peerId = `hoverboard-playground-${pin}`
 let peer = new Peer(peerId)
+console.log('playground:', peerId)
 
 peer.on('connection', conn => {
   console.log('board:', conn.peer)

@@ -18,7 +18,7 @@ export let load = path => {
 
 /* DOM */
 
-let get = selector =>
+export let get = selector =>
   document.querySelector(selector)
 
 export let setText = (selector, text) =>

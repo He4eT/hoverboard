@@ -93,6 +93,8 @@ canvas {
 
 .point {
   position: absolute;
+  top: calc(50% - 0.5rem);
+  left: calc(50% - 0.5rem);
   width: 1rem;
   height: 1rem;
   background-color: #ddd;

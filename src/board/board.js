@@ -1,59 +1,48 @@
 import Peer from 'peerjs'
-import NoSleep from 'nosleep.js'
 
-import {startSensors, drawPoint} from './sensors'
+import {watchSensors} from './sensors'
+import {
+  drawPoint,
+  hideControls,
+  activateFullScreen,
+  preventSleep
+} from './dom'
+
+import {get} from '../utils/utils'
 
 let start = () => {
   void hideControls()
+  void activateFullScreen()
+  void preventSleep()
 
-  let noSleep = new NoSleep()
-  noSleep.enable()
-
-  let peer = new Peer()
-
-  let boardPin = document.querySelector('.token').value
+  let boardPin = get('.token').value
   let boardId = `hoverboard-playground-${boardPin}`
+
+  connect(boardId)
+}
+
+let connect = boardId => {
+  let peer = new Peer()
   let connection = peer.connect(boardId)
 
   connection.on('open', () => {
+    console.log('playground:', connection.peer)
     connection.send('start')
     onConnected(connection)
   })
 }
 
-let onConnected = (connection) => {
-  let container = document.querySelector('.sensorContainer')
-  let point = document.querySelector('.point')
+let onConnected = connection => {
+  let container = get('.sensorContainer')
+  let point = get('.point')
 
-  startSensors((x, y) => {
+  watchSensors((x, y) => {
     connection.send({y})
     drawPoint(container, point, x, y)
   })
 }
 
 window.onload = () => {
-  let startButton = document.querySelector('.start')
+  let startButton = get('.start')
   startButton.addEventListener('click', start)
-}
-
-function hideControls () {
-  let controls = document.querySelector('.controls')
-  let sensorContainer = document.querySelector('.sensorContainer')
-
-  controls.classList.add('hidden')
-  sensorContainer.classList.remove('hidden')
-
-  activateFullScreen()
-}
-
-function activateFullScreen () {
-  let container = document.documentElement
-
-  if (container.requestFullscreen) {
-    container.requestFullscreen()
-  } else if (container.mozRequestFullScreen) {
-    container.mozRequestFullScreen()
-  } else if (container.webkitRequestFullscreen) {
-    container.webkitRequestFullscreen()
-  }
 }
