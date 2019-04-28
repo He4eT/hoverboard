@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 
 /* Math */
+
 export function toRad (degrees) {
   return degrees * Math.PI / 180
 }
@@ -31,7 +32,7 @@ export let hideBySelector = selector =>
 
 /* etc */
 
-export function getPeerId () {
+export function getPin () {
   let time = new Date()
   let mmss = time.getMinutes().toString() +
     time.getSeconds().toString()

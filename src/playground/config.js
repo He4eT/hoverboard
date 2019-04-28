@@ -1,6 +1,3 @@
-/* peerjs */
-export let key = '4cmlwdtxffphw7b9'
-
 /* board */
 export let boardColor = 0xAAAAAA
 
@@ -27,8 +24,6 @@ export let cubeHandicap = 100
 export let cameraDistantion = 30
 export let cameraShift = 5
 export let cameraY = 30
-
-/* light */
 
 /* fog */
 export let fogPower = 0.005

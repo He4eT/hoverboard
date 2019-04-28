@@ -1,4 +1,3 @@
-import {key} from './config'
 import {
   showPIN,
   hidePIN,
@@ -7,7 +6,7 @@ import {
   updateAngle
 } from './dom'
 
-import {getPeerId} from '../utils/utils'
+import {getPin} from '../utils/utils'
 
 import {initVisualisation, setAlpha, start} from './visualisation'
 import Peer from 'peerjs'
@@ -18,7 +17,7 @@ window.onload = initVisualisation({
   updateHUD,
   updateAngle})
 
-let pin = getPeerId()
+let pin = getPin()
 showPIN(pin)
 
 let peerId = `hoverboard-playground-${pin}`

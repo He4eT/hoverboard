@@ -2,10 +2,6 @@ import Peer from 'peerjs'
 import NoSleep from 'nosleep.js'
 
 import {startSensors, drawPoint} from './sensors'
-import {getPeerId} from '../utils/utils'
-
-let boardName = `board${getPeerId()}`
-console.log(boardName)
 
 let start = () => {
   void hideControls()
